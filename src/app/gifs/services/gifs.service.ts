@@ -15,7 +15,7 @@ export class GifsService {
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
 
   constructor( private http: HttpClient ) {
-    this.loadLocalStorage(); // Cuando se crea la instancia del servicio, se carga el historial del localStorage
+    this.loadLocalStorage();
   }
 
   get tagsHistory() {
@@ -39,7 +39,7 @@ export class GifsService {
   };
 
   private loadLocalStorage(): void {
-    if (localStorage.getItem('history')) { // Si existe el historial en el localStorage
+    if (localStorage.getItem('history')) {
       this._tagsHistory = JSON.parse(localStorage.getItem('history')!);
       this.searchTag(this._tagsHistory[0]);
     }
@@ -54,13 +54,9 @@ export class GifsService {
       .set('limit', '10')
       .set('q', tag)
 
-    // Observable: Es un objeto en el cual a lo largo del tiempo, puede estar emitiendo diferentes valores
-
-    /* Usualmente cuando hablamos de "suscribirnos a los observables", significa estar escuchando las emisiones que este objeto estara emitiendo a lo largo de su vida. */
     this.http.get<SearchResponse>(`${this.serviceUrl}/search`, { params })
       .subscribe( (res) => {
         this.gifList = res.data;
-        // console.log(this.gifList);
       });
   };
 }

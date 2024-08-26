@@ -8,25 +8,24 @@ import { GifsService } from '../../services/gifs.service';
     <input type="text"
       class="form-control"
       placeholder="Buscar gifs..."
-      (keyup.enter)="searchTag()"
+      (keyup.enter)="searchTag()" 
       #txtTagInput
-    > <!-- #txtTagInput es una referencia al input -->
+    >
   `,
 })
 
 export class SearchBoxComponent {
 
-  @ViewChild('txtTagInput') // Referencia al input #txtInput
-  public tagInput!: ElementRef<HTMLInputElement>; // ElementRef es un tipo de dato que permite acceder a la referencia del input
+  @ViewChild('txtTagInput')
+  public tagInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private gifsService: GifsService) { // Inyectamos el servicio GifsService
+  constructor(private gifsService: GifsService) {
   }
 
   // searchTag( newTag: string ) {
   searchTag() {
-    const newTag = this.tagInput.nativeElement.value; // Accedemos al valor del input
-    this.gifsService.searchTag(newTag); // Llamamos al método searchTag del servicio
-    this.tagInput.nativeElement.value = ''; // Limpiamos el input
-    console.log(this.gifsService.tagsHistory); // Mostramos el historial de tags
-  };
+    const newTag = this.tagInput.nativeElement.value;
+    this.gifsService.searchTag(newTag);
+    this.tagInput.nativeElement.value = '';
+  }
 }
